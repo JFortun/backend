@@ -1,0 +1,30 @@
+name: pull request
+
+on:
+  pull_request:
+    paths-ignore: [ "**/*.md" ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        id: setup-jdk
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 21
+          overwrite-settings: false
+
+      - name: Build, test and install artifact
+        id: build-test-install-artifact
+        run: ./mvnw -B clean install
