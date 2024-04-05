@@ -8,18 +8,21 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 
+/**
+ * Class containing the configuration of the beans for routing the server requests to the correct handler
+ */
 @Configuration
-public class Router {
+class Router {
 
     @Bean
-    public Handler handler() {
-        return new Handler();
+    Handler handler(final PriceRepository priceRepository) {
+        return new Handler(priceRepository);
     }
 
     @Bean
-    public RouterFunction<ServerResponse> route(final Handler handler) {
+    RouterFunction<ServerResponse> route(final Handler handler) {
         return RouterFunctions
-                .route(GET("/hello"), handler::process);
+                .route(GET("/prices"), handler::process);
     }
 
 }
