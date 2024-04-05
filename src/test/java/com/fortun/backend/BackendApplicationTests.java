@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureWebTestClient
 class BackendApplicationTests {
 
-    private static final String URL_TEMPLATE = "/prices?requestDateTime={startDate}&productId={productId}&brandId={brandId}";
+    private static final String URL_TEMPLATE = "/price?requestDateTime={startDate}&productId={productId}&brandId={brandId}";
 
     @Autowired
     private WebTestClient webTestClient;
@@ -35,7 +35,7 @@ class BackendApplicationTests {
 
     @ParameterizedTest
     @MethodSource("provideTestCases")
-    void testPricesEndpoint(final LocalDateTime requestDateTime, final int productId, final int brandId, final PriceResponse expectedResponse) {
+    void testPriceEndpoint(final LocalDateTime requestDateTime, final int productId, final int brandId, final PriceResponse expectedResponse) {
         this.webTestClient.get()
                 .uri(URL_TEMPLATE, requestDateTime, productId, brandId)
                 .exchange()

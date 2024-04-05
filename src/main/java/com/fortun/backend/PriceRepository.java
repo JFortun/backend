@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 interface PriceRepository extends ReactiveCrudRepository<PriceResponse, Integer> {
 
     /**
-     * Method to query the prices based on a criteria
+     * Method to query the price based on a criteria
      *
      * @param requestDateTime the time at which the request was made
      * @param brandId         id of the brand
      * @param productId       id of the product
-     * @return a reactive collection of prices that matches the query criteria
+     * @return a reactive response of the price that matches the query criteria
      */
     @Query("""
             SELECT p.START_DATE, p.END_DATE, p.BRAND_ID, p.PRODUCT_ID, p.PRICE_LIST, p.PRICE
@@ -25,5 +25,5 @@ interface PriceRepository extends ReactiveCrudRepository<PriceResponse, Integer>
             ORDER BY p.PRIORITY DESC
             LIMIT 1
             """)
-    Mono<PriceResponse> findPrices(LocalDateTime requestDateTime, int brandId, int productId);
+    Mono<PriceResponse> findPrice(LocalDateTime requestDateTime, int brandId, int productId);
 }

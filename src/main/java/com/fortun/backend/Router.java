@@ -22,7 +22,7 @@ class Router {
     @Bean
     RouterFunction<ServerResponse> route(final Handler handler) {
         return RouterFunctions
-                .route(GET("/prices"), handler::process);
+                .route(GET("/price"), handler::process);
     }
 
 }

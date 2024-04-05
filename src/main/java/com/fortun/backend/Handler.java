@@ -25,7 +25,7 @@ class Handler {
     }
 
     /**
-     * Handler to find prices
+     * Handler to find the price
      *
      * @param request the request sent to the server
      * @return the reactive response of the server
@@ -36,7 +36,7 @@ class Handler {
         final int           brandId         = Integer.parseInt(request.queryParam("brandId").orElseThrow());
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(this.priceRepository.findPrices(requestDateTime, brandId, productId), PriceResponse.class)
+                .body(this.priceRepository.findPrice(requestDateTime, brandId, productId), PriceResponse.class)
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 

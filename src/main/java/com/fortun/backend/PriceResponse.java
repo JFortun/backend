@@ -3,7 +3,7 @@ package com.fortun.backend;
 import java.time.LocalDateTime;
 
 /**
- * Record containing the data needed for the response of the prices endpoint
+ * Record containing the data needed for the response of the price endpoint
  *
  * @param productId
  * @param brandId

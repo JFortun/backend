@@ -36,5 +36,5 @@ Backend is built with:
 ## Test the app
 
 ```shell
-curl -X GET -H "Content-type: application/json" "http://localhost:8080/prices?requestDateTime=2020-06-14T10:00:00&productId=35455&brandId=1"
+curl -X GET -H "Content-type: application/json" "http://localhost:8080/price?requestDateTime=2020-06-14T10:00:00&productId=35455&brandId=1"
 ```
