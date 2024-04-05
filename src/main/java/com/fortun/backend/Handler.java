@@ -5,11 +5,39 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-public class Handler {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Mono<ServerResponse> process(final ServerRequest request) {
-        return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
-                .body(Mono.just("Hello, world!"), String.class);
+/**
+ * Class containing the handlers for the web server router
+ */
+class Handler {
+
+    private final PriceRepository priceRepository;
+
+    /**
+     * Constructor for the handler bean
+     *
+     * @param priceRepository the repository of the data
+     */
+    Handler(final PriceRepository priceRepository) {
+        this.priceRepository = priceRepository;
+    }
+
+    /**
+     * Handler to find the price
+     *
+     * @param request the request sent to the server
+     * @return the reactive response of the server
+     */
+    Mono<ServerResponse> process(final ServerRequest request) {
+        final LocalDateTime requestDateTime = LocalDateTime.parse(request.queryParam("requestDateTime").orElseThrow(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        final int           productId       = Integer.parseInt(request.queryParam("productId").orElseThrow());
+        final int           brandId         = Integer.parseInt(request.queryParam("brandId").orElseThrow());
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.priceRepository.findPrice(requestDateTime, brandId, productId), PriceResponse.class)
+                .switchIfEmpty(ServerResponse.notFound().build());
     }
 
 }
