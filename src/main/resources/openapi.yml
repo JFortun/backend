@@ -7,10 +7,10 @@ servers:
   - url: http://localhost:8080
     description: Development server
 paths:
-  /prices:
+  /price:
     get:
-      summary: Find prices by request date, product ID, and brand ID.
-      operationId: findPrices
+      summary: Find price by request date, product ID, and brand ID.
+      operationId: findPrice
       parameters:
         - name: requestDateTime
           in: query
@@ -24,16 +24,16 @@ paths:
           required: true
           schema:
             type: integer
-          description: The product ID to find prices for.
+          description: The product ID to find price for.
         - name: brandId
           in: query
           required: true
           schema:
             type: integer
-          description: The brand ID to find prices for.
+          description: The brand ID to find price for.
       responses:
         '200':
-          description: A list of prices matching the criteria.
+          description: The price matching the criteria.
           content:
             application/json:
               schema:
@@ -41,7 +41,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/PriceResponse'
         '404':
-          description: Not found - The criteria provided did not match any prices.
+          description: Not found - The criteria provided did not match any price.
         '400':
           description: Bad Request - The request parameters are incorrect or missing.
 components:
