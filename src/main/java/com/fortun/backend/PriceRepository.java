@@ -1,5 +1,6 @@
 package com.fortun.backend;
 
+import com.fortun.backend.model.PriceResponse;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Mono;
