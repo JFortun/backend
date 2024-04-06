@@ -1,0 +1,73 @@
+openapi: 3.1.0
+info:
+  title: Price retrieval service
+  description: This service allows clients to retrieve price information based on certain criteria.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Development server
+paths:
+  /prices:
+    get:
+      summary: Find prices by request date, product ID, and brand ID.
+      operationId: findPrices
+      parameters:
+        - name: requestDateTime
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+          description: The time when the request was made in ISO_LOCAL_DATE_TIME format.
+        - name: productId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: The product ID to find prices for.
+        - name: brandId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: The brand ID to find prices for.
+      responses:
+        '200':
+          description: A list of prices matching the criteria.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceResponse'
+        '404':
+          description: Not found - The criteria provided did not match any prices.
+        '400':
+          description: Bad Request - The request parameters are incorrect or missing.
+components:
+  schemas:
+    PriceResponse:
+      type: object
+      properties:
+        productId:
+          type: integer
+        brandId:
+          type: integer
+        priceList:
+          type: integer
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        price:
+          type: number
+          format: double
+      required:
+        - productId
+        - brandId
+        - priceList
+        - startDate
+        - endDate
+        - price
