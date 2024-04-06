@@ -28,3 +28,7 @@ jobs:
       - name: Build, test and install artifact
         id: build-test-install-artifact
         run: ./mvnw -B clean install
+
+      - name: Mutation test
+        id: mutation-test
+        run: ./mvnw -B test-compile org.pitest:pitest-maven:mutationCoverage
