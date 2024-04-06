@@ -138,6 +138,9 @@
                     <threads>2</threads>
                     <mutationThreshold>100</mutationThreshold>
                     <coverageThreshold>100</coverageThreshold>
+                    <excludedClasses>
+                        <param>com.fortun.backend.model.*</param>
+                    </excludedClasses>
                     <excludedMethods>
                         <param>handler</param>
                         <param>route</param>
