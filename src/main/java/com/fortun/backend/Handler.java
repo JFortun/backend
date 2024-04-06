@@ -1,5 +1,6 @@
 package com.fortun.backend;
 
+import com.fortun.backend.model.PriceResponse;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
