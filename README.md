@@ -130,7 +130,7 @@ And then run the Spring Boot application with:
 ./mvnw spring-boot:run
 ```
 
-To make a quick test
+To make a quick test:
 
 ```shell
 curl -X GET -H "Content-type: application/json" "http://localhost:8080/price?requestDateTime=2020-06-14T10:00:00&productId=35455&brandId=1"

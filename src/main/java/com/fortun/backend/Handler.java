@@ -32,9 +32,9 @@ class Handler {
      * @return the reactive response of the server
      */
     Mono<ServerResponse> process(final ServerRequest request) {
-        final LocalDateTime requestDateTime = LocalDateTime.parse(request.queryParam("requestDateTime").orElseThrow(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        final int           productId       = Integer.parseInt(request.queryParam("productId").orElseThrow());
-        final int           brandId         = Integer.parseInt(request.queryParam("brandId").orElseThrow());
+        final var requestDateTime = LocalDateTime.parse(request.queryParam("requestDateTime").orElseThrow(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        final var productId       = Integer.parseInt(request.queryParam("productId").orElseThrow());
+        final var brandId         = Integer.parseInt(request.queryParam("brandId").orElseThrow());
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(this.priceRepository.findPrice(requestDateTime, brandId, productId), PriceResponse.class)

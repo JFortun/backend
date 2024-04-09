@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureWebTestClient
 class BackendApplicationTests {
 
-    private static final String URL_TEMPLATE = "/price?requestDateTime={startDate}&productId={productId}&brandId={brandId}";
+    private static final String URL_TEMPLATE = "/price?requestDateTime={requestDateTime}&productId={productId}&brandId={brandId}";
 
     @Autowired
     private WebTestClient webTestClient;
