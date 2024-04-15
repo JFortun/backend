@@ -1,5 +1,7 @@
-package com.fortun.backend;
+package com.fortun.backend.router;
 
+import com.fortun.backend.handler.Handler;
+import com.fortun.backend.repository.PriceRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
