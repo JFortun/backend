@@ -1,6 +1,7 @@
-package com.fortun.backend;
+package com.fortun.backend.handler;
 
 import com.fortun.backend.model.PriceResponse;
+import com.fortun.backend.repository.PriceRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -12,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Class containing the handlers for the web server router
  */
-class Handler {
+public class Handler {
 
     private final PriceRepository priceRepository;
 
@@ -21,7 +22,7 @@ class Handler {
      *
      * @param priceRepository the repository of the data
      */
-    Handler(final PriceRepository priceRepository) {
+    public Handler(final PriceRepository priceRepository) {
         this.priceRepository = priceRepository;
     }
 
@@ -31,7 +32,7 @@ class Handler {
      * @param request the request sent to the server
      * @return the reactive response of the server
      */
-    Mono<ServerResponse> process(final ServerRequest request) {
+    public Mono<ServerResponse> process(final ServerRequest request) {
         final var requestDateTime = LocalDateTime.parse(request.queryParam("requestDateTime").orElseThrow(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         final var productId       = Integer.parseInt(request.queryParam("productId").orElseThrow());
         final var brandId         = Integer.parseInt(request.queryParam("brandId").orElseThrow());

@@ -1,4 +1,4 @@
-package com.fortun.backend;
+package com.fortun.backend.repository;
 
 import com.fortun.backend.model.PriceResponse;
 import org.springframework.data.r2dbc.repository.Query;
@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
-interface PriceRepository extends ReactiveCrudRepository<PriceResponse, Integer> {
+public interface PriceRepository extends ReactiveCrudRepository<PriceResponse, Integer> {
 
     /**
      * Method to query the price based on a criteria
