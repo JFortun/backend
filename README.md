@@ -40,12 +40,12 @@ and workflow:
    handler based on the URL and HTTP method. This approach decouples routing logic from request handling, enhancing
    modularity and clarity.
 
-3. Request handling [`Handler.java`](./src/main/java/com/fortun/backend/handler/Handler.java):
+3. Request handling ([`Handler.java`](./src/main/java/com/fortun/backend/handler/Handler.java)):
    The selected handler is responsible for processing the incoming request. It parses query parameters, validates
    inputs, and performs business logic, which includes calling on the repository interface to fetch or manipulate data
    stored in the database.
 
-4. Reactive repository [`PriceRepository`](./src/main/java/com/fortun/backend/repository/PriceRepository.java):
+4. Reactive repository ([`PriceRepository`](./src/main/java/com/fortun/backend/repository/PriceRepository.java)):
    The repository interface defines reactive methods for database access, leveraging Spring Data's support for R2DBC.
    This allows for non-blocking I/O operations when querying the database, fitting seamlessly into the reactive
    programming model employed by the entire service architecture.
@@ -134,4 +134,10 @@ To make a quick test:
 
 ```shell
 curl -X GET -H "Content-type: application/json" "http://localhost:8080/price?requestDateTime=2020-06-14T10:00:00&productId=35455&brandId=1"
+```
+
+To see the code coverage report provided by [JaCoCo](https://www.jacoco.org/) (report is in `target/site/jacoco/index.html`):
+
+```shell
+./mvnw clean install jacoco:report
 ```
