@@ -2,6 +2,7 @@ package com.fortun.backend.handler;
 
 import com.fortun.backend.model.PriceResponse;
 import com.fortun.backend.repository.PriceRepository;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -33,13 +34,27 @@ public class Handler {
      * @return the reactive response of the server
      */
     public Mono<ServerResponse> process(final ServerRequest request) {
-        final var requestDateTime = LocalDateTime.parse(request.queryParam("requestDateTime").orElseThrow(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        final var productId       = Integer.parseInt(request.queryParam("productId").orElseThrow());
-        final var brandId         = Integer.parseInt(request.queryParam("brandId").orElseThrow());
-        return ServerResponse.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(this.priceRepository.findPrice(requestDateTime, brandId, productId), PriceResponse.class)
-                .switchIfEmpty(ServerResponse.notFound().build());
+        final var requestDateTimeRaw = request.queryParam("requestDateTime").orElseThrow();
+        final var productIdRaw       = request.queryParam("productId").orElseThrow();
+        final var brandIdRaw         = request.queryParam("brandId").orElseThrow();
+
+        // Check for correct request query params
+        if (requestDateTimeRaw.isBlank() || productIdRaw.isBlank() || brandIdRaw.isBlank()) {
+            return ServerResponse.badRequest().bodyValue("All of the query params must be provided");
+        }
+
+        try {
+            final var requestDateTime = LocalDateTime.parse(requestDateTimeRaw, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            final var productId       = Integer.parseInt(productIdRaw);
+            final var brandId         = Integer.parseInt(brandIdRaw);
+
+            return ServerResponse.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(this.priceRepository.findPrice(requestDateTime, brandId, productId), PriceResponse.class)
+                    .switchIfEmpty(ServerResponse.notFound().build());
+        } catch (final Throwable throwable) {
+            return ServerResponse.status(HttpStatusCode.valueOf(500)).bodyValue(throwable.getMessage());
+        }
     }
 
 }

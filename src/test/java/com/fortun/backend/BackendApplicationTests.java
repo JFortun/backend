@@ -1,6 +1,7 @@
 package com.fortun.backend;
 
 import com.fortun.backend.model.PriceResponse;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -44,8 +45,36 @@ class BackendApplicationTests {
                 .isOk()
                 .expectBody(PriceResponse.class)
                 .consumeWith(response -> {
-                    final PriceResponse actualResponses = response.getResponseBody();
-                    assertThat(actualResponses).isEqualTo(expectedResponse);
+                    final var responseBody = response.getResponseBody();
+                    assertThat(responseBody).isEqualTo(expectedResponse);
+                });
+    }
+
+    @Test
+    void testPriceEndpointWithEmptyRequestDataShouldReturnBadRequestError() {
+        this.webTestClient.get()
+                .uri(URL_TEMPLATE, null, null, null)
+                .exchange()
+                .expectStatus()
+                .isBadRequest()
+                .expectBody(String.class)
+                .consumeWith(response -> {
+                    final var responseBody = response.getResponseBody();
+                    assertThat(responseBody).isEqualTo("All of the query params must be provided");
+                });
+    }
+
+    @Test
+    void testPriceEndpointWithWrongRequestDataShouldReturnServerError() {
+        this.webTestClient.get()
+                .uri(URL_TEMPLATE, "*", "*", "*")
+                .exchange()
+                .expectStatus()
+                .is5xxServerError()
+                .expectBody(String.class)
+                .consumeWith(response -> {
+                    final var responseBody = response.getResponseBody();
+                    assertThat(responseBody).contains("Text '*' could not be parsed");
                 });
     }
 
