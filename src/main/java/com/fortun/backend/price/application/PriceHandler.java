@@ -1,7 +1,6 @@
-package com.fortun.backend.handler;
+package com.fortun.backend.price.application;
 
-import com.fortun.backend.model.PriceResponse;
-import com.fortun.backend.repository.PriceRepository;
+import com.fortun.backend.prices.domain.PriceResponse;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -14,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Class containing the handlers for the web server router
  */
-public class Handler {
+public class PriceHandler {
 
     private final PriceRepository priceRepository;
 
@@ -23,7 +22,7 @@ public class Handler {
      *
      * @param priceRepository the repository of the data
      */
-    public Handler(final PriceRepository priceRepository) {
+    public PriceHandler(final PriceRepository priceRepository) {
         this.priceRepository = priceRepository;
     }
 
