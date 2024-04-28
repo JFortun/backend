@@ -25,6 +25,15 @@ Backend is built with:
 
 ## Architecture
 
+This project uses a simple implementation of the hexagonal architecture, applying the vertical slicing technic to
+separate each functional use case.
+We have a `price` slice that contains:
+
+- The **domain** layer, that is generated from the [OpenAPI specification](./src/main/resources/openapi.yml).
+- The **application** layer, that handles all the business logic of the application.
+- The **infrastructure** layer, that connects to the exterior agents by receiving HTTP calls and routing them to the
+  correct handler.
+
 The architecture outlined encompasses a reactive web service designed with Spring Boot, specifically leveraging the
 capabilities of Spring WebFlux for handling web requests and Spring Data R2DBC for database interactions. At its core,
 the service is structured to efficiently manage data retrieval operations in a non-blocking, reactive manner, catering
@@ -35,17 +44,19 @@ and workflow:
    The starting point is the client, represented here by a user making HTTP requests. This could be a browser, a mobile
    app, or any client capable of sending HTTP requests to the server.
 
-2. Router configuration ([`Router.java`](./src/main/java/com/fortun/backend/router/Router.java)):
+2. Router
+   configuration ([`PriceRouter.java`](./src/main/java/com/fortun/backend/price/infrastructure/PriceRouter.java)):
    Upon receiving a request, the Spring Boot application uses RouterFunctions to direct the request to the appropriate
-   handler based on the URL and HTTP method. This approach decouples routing logic from request handling, enhancing
+   priceHandler based on the URL and HTTP method. This approach decouples routing logic from request handling, enhancing
    modularity and clarity.
 
-3. Request handling ([`Handler.java`](./src/main/java/com/fortun/backend/handler/Handler.java)):
-   The selected handler is responsible for processing the incoming request. It parses query parameters, validates
+3. Request handling ([`PriceHandler.java`](./src/main/java/com/fortun/backend/price/application/PriceHandler.java)):
+   The selected priceHandler is responsible for processing the incoming request. It parses query parameters, validates
    inputs, and performs business logic, which includes calling on the repository interface to fetch or manipulate data
    stored in the database.
 
-4. Reactive repository ([`PriceRepository`](./src/main/java/com/fortun/backend/repository/PriceRepository.java)):
+4. Reactive
+   repository ([`PriceRepository`](./src/main/java/com/fortun/backend/price/application/PriceRepository.java)):
    The repository interface defines reactive methods for database access, leveraging Spring Data's support for R2DBC.
    This allows for non-blocking I/O operations when querying the database, fitting seamlessly into the reactive
    programming model employed by the entire service architecture.
@@ -136,7 +147,8 @@ To make a quick test:
 curl -X GET -H "Content-type: application/json" "http://localhost:8080/price?requestDateTime=2020-06-14T10:00:00&productId=35455&brandId=1"
 ```
 
-To see the code coverage report provided by [JaCoCo](https://www.jacoco.org/) (report is in `target/site/jacoco/index.html`):
+To see the code coverage report provided by [JaCoCo](https://www.jacoco.org/) (report is
+in `target/site/jacoco/index.html`):
 
 ```shell
 ./mvnw clean install jacoco:report

@@ -113,7 +113,7 @@
                             <generateApiTests>false</generateApiTests>
                             <generateModelTests>false</generateModelTests>
                             <generateSupportingFiles>false</generateSupportingFiles>
-                            <modelPackage>com.fortun.backend.model</modelPackage>
+                            <modelPackage>com.fortun.backend.price.domain</modelPackage>
                             <typeMappings>
                                 <typeMapping>OffsetDateTime=LocalDateTime</typeMapping>
                             </typeMappings>
@@ -140,7 +140,7 @@
                     <mutationThreshold>100</mutationThreshold>
                     <coverageThreshold>100</coverageThreshold>
                     <excludedClasses>
-                        <param>com.fortun.backend.model.*</param>
+                        <param>com.fortun.backend.price.domain.*</param>
                     </excludedClasses>
                     <excludedMethods>
                         <param>handler</param>

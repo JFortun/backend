@@ -1,7 +1,7 @@
-package com.fortun.backend.router;
+package com.fortun.backend.price.infrastructure;
 
-import com.fortun.backend.handler.Handler;
-import com.fortun.backend.repository.PriceRepository;
+import com.fortun.backend.price.application.PriceHandler;
+import com.fortun.backend.price.application.PriceRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -14,17 +14,17 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
  * Class containing the configuration of the beans for routing the server requests to the correct handler
  */
 @Configuration
-class Router {
+class PriceRouter {
 
     @Bean
-    Handler handler(final PriceRepository priceRepository) {
-        return new Handler(priceRepository);
+    PriceHandler handler(final PriceRepository priceRepository) {
+        return new PriceHandler(priceRepository);
     }
 
     @Bean
-    RouterFunction<ServerResponse> route(final Handler handler) {
+    RouterFunction<ServerResponse> route(final PriceHandler priceHandler) {
         return RouterFunctions
-                .route(GET("/price"), handler::process);
+                .route(GET("/price"), priceHandler::process);
     }
 
 }
