@@ -1,6 +1,6 @@
 package com.fortun.backend;
 
-import com.fortun.backend.prices.domain.PriceResponse;
+import com.fortun.backend.price.domain.PriceResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

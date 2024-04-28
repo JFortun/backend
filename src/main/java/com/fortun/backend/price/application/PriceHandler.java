@@ -1,6 +1,6 @@
 package com.fortun.backend.price.application;
 
-import com.fortun.backend.prices.domain.PriceResponse;
+import com.fortun.backend.price.domain.PriceResponse;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerRequest;
