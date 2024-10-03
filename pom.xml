@@ -33,7 +33,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Dependency versions -->
-        <swagger-annotations.version>2.2.24</swagger-annotations.version>
+        <swagger-annotations.version>2.2.25</swagger-annotations.version>
         <!-- Plugin versions -->
         <openapi-generator-maven-plugin.version>7.8.0</openapi-generator-maven-plugin.version>
         <pitest-maven-plugin.version>1.17.0</pitest-maven-plugin.version>
