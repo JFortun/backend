@@ -36,7 +36,7 @@
         <swagger-annotations.version>2.2.32</swagger-annotations.version>
         <!-- Plugin versions -->
         <openapi-generator-maven-plugin.version>7.13.0</openapi-generator-maven-plugin.version>
-        <pitest-maven-plugin.version>1.19.3</pitest-maven-plugin.version>
+        <pitest-maven-plugin.version>1.19.4</pitest-maven-plugin.version>
         <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
     </properties>
 
